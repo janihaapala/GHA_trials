@@ -34,3 +34,33 @@ jobs:
           node-version: 14
       - run: npm install --global mocha
       - run: npm test
+    
+  Test-job2:
+    runs-on: ubuntu-latest
+    name: Test2
+    needs: [Build-Job]
+    if: github.ref != 'refs/heads/production'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install mocha chai --save-dev
+      - run: npm test
+  
+  Test-job3:
+    runs-on: ubuntu-latest
+    name: Test3
+    needs: [Build-Job]
+    if: github.ref != 'refs/heads/production'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test3
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install --global mocha
+      - run: npm install unit.js
+      - run: npm test  
+        
